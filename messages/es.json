@@ -1,0 +1,27 @@
+{
+    "Hero": {
+        "title": "Bienvenido a mi pagina web",
+        "description": "This is the home page of our application."
+    },
+    "DataUploader": {
+        "cardTitle": "Cargar Datos",
+        "cardDescription": "Upload your data files here.",
+        "uploadButton": "Upload",
+        "buttonProcess": "Process JSON Data",
+        "sampleButton": "Cargar datos de muestra",
+        "alertError": "Error"
+    },
+    "HomePage": {
+        "title": "Welcome to the home page",
+        "about": "About"
+    },
+    "Header": {
+        "comment": "Comment",
+        "features": "Características",
+        "blog": "Blog",
+        "contact": "Contacto",
+        "resources": "Recursos",
+        "login": "Log in",
+        "book": "Book a demo"
+    }
+}

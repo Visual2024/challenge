@@ -1,0 +1,27 @@
+{
+    "Hero": {
+      "title": "Welcome to the home page",
+      "description": "This is the home page of our application."
+    },
+    "DataUploader": {
+      "cardTitle": "Data Uploader",
+      "cardDescription": "Upload your data files here.",
+      "uploadButton": "Upload",
+      "buttonProcess": "Process JSON Data",
+      "sampleButton": "Load Sample Data",
+      "alertError": "Error"
+    },
+    "HomePage": {
+      "title": "Welcome to the home page",
+      "about": "About"
+    },
+    "Header": {
+      "comment": "Comment",
+      "features": "Features",
+      "blog": "Blog",
+      "contact": "Contact",
+      "resources": "Resources",
+      "login": "Log in",
+      "book": "Book a demo"
+  }
+}
