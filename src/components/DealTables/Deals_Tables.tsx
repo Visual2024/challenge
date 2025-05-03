@@ -1,12 +1,24 @@
-import type { DealTableProps } from "@/interfaces/deals"
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/UI/table"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/UI/card"
-import { Button } from "@/components/UI/button"
-import { Download } from "lucide-react"
-import { exportDealsAsXml } from "@/services/exportDealsAsXml/exportDealsAsXml"
+'use client'
+import { StandardizedDeal } from "@/interfaces/deals"
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow
+} from "../index"
+
+interface DealTableProps {
+  deals: StandardizedDeal[]
+}
 
 export function DealTable({ deals }: DealTableProps) {
-  
   const totalCommission = deals.reduce((sum, deal) => sum + deal.commission, 0)
 
   const formatCurrency = (amount: number) => {
@@ -20,20 +32,19 @@ export function DealTable({ deals }: DealTableProps) {
     return new Date(dateString).toLocaleDateString("es-AR")
   }
 
-
   return (
     <div className="space-y-6">
       <Card>
-        <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle>Deals and Commissions</CardTitle>
-          {/* <Button onClick={exportDealsAsXml} variant="outline" size="sm">
-            <Download className="mr-2 h-4 w-4" />
-            Export XML
-          </Button> */}
+        <CardHeader>
+          <CardTitle>
+            <div className="flex items-center gap-2">
+              <span>Deals and Commissions</span>
+            </div>
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <Table>
-            <TableCaption>List of standardized deals from different CRMs</TableCaption>
+            <TableCaption>List of all standardized deals</TableCaption>
             <TableHeader>
               <TableRow>
                 <TableHead>ID</TableHead>

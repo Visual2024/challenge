@@ -3,13 +3,22 @@
       "title": "Welcome to the home page",
       "description": "This is the home page of our application."
     },
-    "DataUploader": {
-      "cardTitle": "Data Uploader",
-      "cardDescription": "Upload your data files here.",
-      "uploadButton": "Upload",
-      "buttonProcess": "Process JSON Data",
-      "sampleButton": "Load Sample Data",
-      "alertError": "Error"
+   "DataUploader": {
+        "uploadData": "Upload Data",
+        "processData": "Process Data",
+        "results": "Results",
+        "noFileSelected": "Please select a file first",
+        "invalidFileType": "Please upload a CSV or JSON file",
+        "processingError": "Error processing the file",
+        "invalidData": "Found {count} invalid records",
+        "id": "ID",
+        "amount": "Amount",
+        "salesperson": "Salesperson",
+        "date": "Date",
+        "commission": "Commission",
+        "source": "Source",
+        "dataPlaceholder": "Input date",
+        "dataFormatInfo": ""
     },
     "HomePage": {
       "title": "Welcome to the home page",
