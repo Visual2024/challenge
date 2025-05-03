@@ -1,9 +1,8 @@
-// Original data structures from CRMs
 export interface CrmADeal {
-  deal_id: string
+  deal_id?: string
   total?: number
   amount?: number
-  rep_name: string
+  rep_name?: string
   sold_at?: string
   created_on?: string
 }

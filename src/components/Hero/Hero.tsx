@@ -6,12 +6,11 @@ export function Hero() {
 
     return (
         <WavyBackground className="">
-            <h2 className="text-2xl  md:text-4xl lg:text-7xl font-bold inter-var text-center">
-                {t('title')}
-            </h2>
-            <p className="text-base  md:text-lg mt-4  font-normal inter-var text-center">
-                {t('description')}
-            </p>
+            <div className="flex flex-col items-center justify-center ">
+                <h2 className="text-xl md:text-4xl lg:text-5xl font-semibold inter-var text-center">
+                    {t('title')}
+                </h2>
+            </div>
         </WavyBackground>
     )
 }

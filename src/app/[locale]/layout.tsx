@@ -4,6 +4,7 @@ import { routing } from '@/i18n/routing';
 import './globals.css';
 import { Metadata } from 'next';
 import { DM_Sans } from 'next/font/google';
+import { DealProvider } from '@/contexts/DealContext';
 
 const dm_Sans = DM_Sans({
   subsets: ['latin'],
@@ -19,9 +20,6 @@ export const metadata: Metadata = {
       shortcut: '/logo/Logo.png',
       apple: '/logo/Logo.png'
     },
-
-
-
   }
 
 export default async function LocaleLayout({
@@ -40,7 +38,11 @@ export default async function LocaleLayout({
 return (
   <html lang={locale} className={`${dm_Sans.className}`}>
     <body style={{ fontFamily: 'var(--font-dm-sans)' }}>
-      <NextIntlClientProvider>{children}</NextIntlClientProvider>
+      <NextIntlClientProvider>
+        <DealProvider>
+          {children}
+        </DealProvider>
+      </NextIntlClientProvider>
     </body>
   </html>
 );
