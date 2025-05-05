@@ -19,6 +19,47 @@ Este proyecto es una aplicación web desarrollada con [Next.js](https://nextjs.o
 - Navegador web moderno (Chrome, Firefox, Edge)
 - Conexión a Internet para instalar dependencias
 
-## Instalación
+## Guía de Instalación y Ejecución
 
 1. Clone el repositorio:
+   ```bash
+   git clone https://github.com/Visual2024/challenge.git
+   cd challenge
+   ```
+
+2. Instale las dependencias:
+   ```bash
+   npm install
+   # o
+   yarn install
+   # o
+   pnpm install
+   ```
+
+
+3. Ejecute el servidor de desarrollo:
+   ```bash
+   npm run dev
+   # o
+   yarn dev
+   # o
+   pnpm dev
+   ```
+
+4. Acceda a la aplicación:
+   Abra su navegador y visite `http://localhost:3000/es`
+
+5. Para construir la versión de producción:
+   ```bash
+   pnpm build
+   pnpm dev
+   # o
+   yarn build
+   yarn dev
+   ```
+
+## Solución de problemas comunes
+
+- Si encuentra errores de dependencias, intente eliminar la carpeta `node_modules` y el archivo `package-lock.json` (o `yarn.lock`) y vuelva a ejecutar el comando de instalación.
+- Asegúrese de que su versión de Node.js sea compatible (verifique con `node -v`).
+- Para problemas de internacionalización, verifique que los archivos de idioma estén correctamente configurados en la carpeta de traducciones.
