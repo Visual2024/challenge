@@ -1,22 +1,25 @@
 import { CrmADeal, StandardizedDeal } from "@/interfaces/deals"
+import { standardizeKeys } from "@/utils/standardizeKeys"
 
 export function transformCrmAData(data: CrmADeal[]): StandardizedDeal[] {
+  console.log("Datos originales:", data);
+
   return data.map((deal) => {
-    const amount = deal.total || deal.amount || 0
-    const date = deal.sold_at || deal.created_on || new Date().toISOString()
 
-    console.log(amount);
-    console.log(date);
+    // Primero estandarizamos las claves
+    const standardizedDeal = standardizeKeys<Partial<StandardizedDeal>>(deal);
 
+    // Luego creamos el objeto final con valores por defecto
+    const finalDeal = {
+      id: String(standardizedDeal.id || ""),
+      amount: Number(standardizedDeal.amount || 0),
+      salesperson: String(standardizedDeal.salesperson || ""),
+      date: new Date(standardizedDeal.date || new Date()).toISOString(),
+      commission: Number(standardizedDeal.amount || 0) * 0.1,
+      source: "CRM A"
+    } as StandardizedDeal;
 
-
-    return {
-      id: deal.deal_id || "",
-      amount: amount,
-      salesperson: deal.rep_name || "",
-      date: new Date(date).toISOString(),
-      commission: amount * 0.1,
-      source: "CRM A",
-    }
-  })
+    console.log("Deal final transformado:", finalDeal);
+    return finalDeal;
+  });
 }

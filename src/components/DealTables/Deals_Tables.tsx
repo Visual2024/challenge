@@ -45,7 +45,7 @@ export function DealTable({ deals }: DealTableProps) {
         </CardHeader>
         <CardContent>
           <Table>
-            <TableCaption>List of all standardized deals</TableCaption>
+            <TableCaption>{t("listStadar")}</TableCaption>
             <TableHeader>
               <TableRow>
                 <TableHead>ID</TableHead>
@@ -83,7 +83,7 @@ export function DealTable({ deals }: DealTableProps) {
       {deals.length > 0 && (
         <Card className="bg-green-50">
           <CardHeader>
-            <CardTitle>Total Commissions</CardTitle>
+            <CardTitle>{t("totalCommissions")}</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-2xl font-bold">{formatCurrency(totalCommission)}</p>

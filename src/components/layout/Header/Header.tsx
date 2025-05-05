@@ -24,7 +24,7 @@ export function Header() {
 
   return (
     <>
-      <header className="flex items-center justify-between w-full max-w-full px-4 py-3 border-b md:px-8 overflow-x-hidden">
+      <header className="flex items-center justify-between max-w-full px-4 py-3 border-b  md:px-8 overflow-x-hidden">
         <div className="flex items-center gap-x-4">
           <div className="flex items-center">
             <Image width={60} height={100} alt="" src="/logo/Logo.png" />

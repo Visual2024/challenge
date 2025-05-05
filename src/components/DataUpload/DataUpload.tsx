@@ -3,16 +3,16 @@ import { StandardizedDeal } from "@/interfaces/deals"
 import { transformCrmAData } from "@/services/tranformsJson/transformCrmAData"
 import type React from "react"
 import { useState } from "react"
-import { Alert, AlertDescription, AlertTitle, Button, Card, CardContent, CardHeader, CardTitle, Tabs, TabsContent, TabsList, TabsTrigger, Textarea } from '..'
+import { Alert, AlertDescription, AlertTitle, Button, Card, CardContent, CardHeader, CardTitle, Tabs, TabsContent, TabsList, TabsTrigger, Textarea, Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '..'
 import { AlertCircle, CheckCircle2 } from "lucide-react"
-import { processDeals } from "@/utils/validation"
+import { processDeals } from "@/validations/validation"
 import { parseCsvData, transformCrmBData } from "@/services/transformsCsv/transformCrmBData"
 import user from '../../mock/deals.json'
 import { useTranslations } from "next-intl"
 
 interface DataUploaderProps {
     setDealsAction: React.Dispatch<React.SetStateAction<StandardizedDeal[]>>
-}   
+}
 
 export function DataUploader({ setDealsAction }: DataUploaderProps) {
     const [jsonInput, setJsonInput] = useState("")
@@ -24,6 +24,8 @@ export function DataUploader({ setDealsAction }: DataUploaderProps) {
     const t = useTranslations("DataUploader")
 
     const date = JSON.stringify(user, null, 2)
+
+    console.log(date);
 
     const sampleCsvData = `opportunity_id,amount,seller,deal_date
 B1,3000,Carlos García,2024/03/03
@@ -38,29 +40,27 @@ B2,4500,Maria García,2024/03/04`
 
     const processJsonData = async () => {
         try {
-            setError(null)
-            setLoading(true)
-            const parsedData = JSON.parse(jsonInput)
-            console.log("Datos parseados" + parsedData);
+            setError(null);
+            setLoading(true);
 
-            const transformedData = transformCrmAData(parsedData)
+            const parsedData = JSON.parse(jsonInput);
+            console.log("Datos parseados:", parsedData);
+
+            const transformedData = transformCrmAData(parsedData);
             console.log("Datos Transformados:", transformedData);
 
+            const validDeals = processDeals(transformedData);
+            console.log("Ofertas válidas:", validDeals);
 
-            const validDeals = processDeals(transformedData)
-            console.log(validDeals);
-
-
-            setDealsAction(validDeals)
-
-            setSuccess(`Successfully processed ${validDeals.length} deals from CRM A`)
+            setDealsAction(validDeals);
+            setSuccess(`Successfully processed ${validDeals.length} deals from CRM A`);
         } catch (err) {
-            setError(`Error processing JSON data: ${err instanceof Error ? err.message : String(err)}`)
-            setSuccess(null)
+            setError(`Error processing JSON data: ${err instanceof Error ? err.message : String(err)}`);
+            setSuccess(null);
         } finally {
-            setLoading(false)
+            setLoading(false);
         }
-    }
+    };
 
     const processCsvData = async () => {
         try {
@@ -111,9 +111,11 @@ B2,4500,Maria García,2024/03/04`
             }
 
             const validDeals = processDeals(allDeals)
+            console.log(validDeals);
+
             setDealsAction(validDeals)
 
-            setSuccess(`Successfully processed ${validDeals.length} deals from all CRMs`)
+            setSuccess(`Successfully processed deals from all CRMs`)
         } catch (err) {
             setError(`Error processing data: ${err instanceof Error ? err.message : String(err)}`)
         } finally {
@@ -128,13 +130,45 @@ B2,4500,Maria García,2024/03/04`
                 <CardTitle>{t("cardTitle")}</CardTitle>
             </CardHeader>
             <CardContent>
-                <div className="space-y-4">
-                    <div className="flex flex-wrap gap-4">
+                <div className="space-y-2">
+                    <div className="flex flex-wrap gap-2">
                         <Button onClick={loadSampleData} variant="outline">
                             {t("loadSampleDate")}
                         </Button>
 
+                        <Accordion type="single" collapsible className="w-full">
+                            <AccordionItem value="json-examples">
+                                <AccordionTrigger>
+                                    <p className="no-underline hover:no-underline border-2 p-2 rounded-md px-3">{t("ejemploStruture")}</p>
+                                </AccordionTrigger>
+                                <AccordionContent>
+                                    <div className="space-y-4">
+                                        <Card className="border-gray-200">
+                                            <CardHeader className="pb-2">
+                                                <CardTitle className="text-sm font-medium">Ejemplo</CardTitle>
+                                            </CardHeader>
+                                            <CardContent>
+                                                <pre className="bg-gray-100 p-2 rounded text-sm">
+                                                    {`
+{
+    "deal_id": "A1",
+    "total": 5000,
+    "rep_name": "Ana Pérez",
+    "sold_at": "2024-03-01"
+}`}
+                                                </pre>
+                                            </CardContent>
+                                        </Card>
 
+                                        <Alert variant="default" className="bg-blue-50 border-blue-200">
+                                            <AlertDescription className="text-sm text-gray-600">
+                                                {t("noteExampleStruture")}
+                                            </AlertDescription>
+                                        </Alert>
+                                    </div>
+                                </AccordionContent>
+                            </AccordionItem>
+                        </Accordion>
                     </div>
 
                     {error && (
@@ -154,11 +188,13 @@ B2,4500,Maria García,2024/03/04`
                     )}
 
                     <Tabs defaultValue="json">
+
                         <TabsList className="grid w-full grid-cols-2">
                             <TabsTrigger value="json">CRM A (JSON)</TabsTrigger>
                             <TabsTrigger value="csv">CRM B (CSV)</TabsTrigger>
                         </TabsList>
                         <TabsContent value="json" className="space-y-4">
+
                             <Textarea
                                 placeholder={t("placeholderTextAreaJson")}
                                 value={jsonInput}

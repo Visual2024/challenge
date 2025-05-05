@@ -1,6 +1,5 @@
 'use client'
 import { useState } from "react"
-import { Header } from "./layout/Header/Header"
 import { Hero } from "./Hero/Hero"
 import { DataUploader } from "./DataUpload/DataUpload"
 import { StandardizedDeal } from "@/interfaces/deals"
@@ -13,11 +12,9 @@ export function ClientComponent() {
 
   return (
     <div className="space-y-8">
-      <Header />
-        <Hero />
-        <DataUploader setDealsAction={setDeals} />
-        <DealTable deals={deals} />
-      
+      <Hero />
+      <DataUploader setDealsAction={setDeals} />
+      <DealTable deals={deals} />
     </div>
   );
 }

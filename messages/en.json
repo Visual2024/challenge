@@ -1,6 +1,6 @@
 {
   "Hero": {
-    "title": "Welcome to the home page",
+    "title": "Calculate your commissions",
     "description": "This is the home page of our application."
   },
   "DataUploader": {
@@ -27,7 +27,9 @@
     "readyTextJson": "Process JSON Data",
     "readyTextCsv": "Process CSV Data",
     "placeholderTextAreaCsv": "Paste the CSV data here...",
-    "processAllData": "Process All Data"
+    "processAllData": "Process All Data",
+    "ejemploStruture": "Example structures for JSON",
+    "noteExampleStruture":"Note: The system will accept any of these key variations and automatically transform them into the standard format."
   },
   "HomePage": {
     "title": "Welcome to the home page",
@@ -48,6 +50,8 @@
     "salesperson": "Salesperson",
     "date": "Date",
     "commission": "Commission (10%)",
-    "source": "Source"
+    "source": "Source",
+    "totalCommissions": "Total Commissions",
+    "listStadar": "List of all standardized deals"
   }
 }

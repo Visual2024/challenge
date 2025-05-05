@@ -1,6 +1,6 @@
 {
   "Hero": {
-    "title": "En Commet simplificamos el proceso de cálculo y pago de comisiones",
+    "title": "Calcula tus comisiones",
     "description": "This is the home page of our application."
   },
   "DataUploader": {
@@ -17,7 +17,9 @@
     "readyTextJson": "Procesar el JSON",
     "readyTextCsv": "Procesar el CSV",
     "placeholderTextAreaCsv": "Pegue los datos CSV aquí...",
-    "processAllData": "Procesando todos los datos"
+    "processAllData": "Procesando todos los datos",
+    "ejemploStruture": "Estructuras de ejemplo para JSON",
+    "noteExampleStruture":"Nota: El sistema aceptará cualquiera de estas variaciones de claves y las transformará automáticamente al formato estándar."
   },
   "HomePage": {
     "title": "Welcome to the home page",
@@ -38,6 +40,8 @@
     "salesperson": "Vendedor",
     "date": "Fecha",
     "commission": "Comisión (10%)",
-    "source": "Origen"
+    "source": "Origen",
+    "totalCommissions": "Comision total",
+    "listStadar": "Lista de todas las ofertas estandarizadas"
   }
 }
