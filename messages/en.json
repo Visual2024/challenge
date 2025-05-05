@@ -1,36 +1,53 @@
 {
-    "Hero": {
-      "title": "Welcome to the home page",
-      "description": "This is the home page of our application."
-    },
-   "DataUploader": {
-        "uploadData": "Upload Data",
-        "processData": "Process Data",
-        "results": "Results",
-        "noFileSelected": "Please select a file first",
-        "invalidFileType": "Please upload a CSV or JSON file",
-        "processingError": "Error processing the file",
-        "invalidData": "Found {count} invalid records",
-        "id": "ID",
-        "amount": "Amount",
-        "salesperson": "Salesperson",
-        "date": "Date",
-        "commission": "Commission",
-        "source": "Source",
-        "dataPlaceholder": "Input date",
-        "dataFormatInfo": ""
-    },
-    "HomePage": {
-      "title": "Welcome to the home page",
-      "about": "About"
-    },
-    "Header": {
-      "comment": "Comment",
-      "features": "Features",
-      "blog": "Blog",
-      "contact": "Contact",
-      "resources": "Resources",
-      "login": "Log in",
-      "book": "Book a demo"
+  "Hero": {
+    "title": "Welcome to the home page",
+    "description": "This is the home page of our application."
+  },
+  "DataUploader": {
+    "cardTitle": "Upload CRM Data",
+    "uploadData": "Upload Data",
+    "processData": "Process Data",
+    "success": "Success",
+    "results": "Results",
+    "noFileSelected": "Please select a file first",
+    "invalidFileType": "Please upload a CSV or JSON file",
+    "processingError": "Error processing the file",
+    "invalidData": "Found {count} invalid records",
+    "id": "ID",
+    "amount": "Amount",
+    "salesperson": "Salesperson",
+    "date": "Date",
+    "commission": "Commission",
+    "source": "Source",
+    "dataPlaceholder": "Enter date",
+    "dataFormatInfo": "",
+    "loadSampleDate": "Load Sample Data",
+    "placeholderTextAreaJson": "Paste JSON data here...",
+    "loading": "Processing...",
+    "readyTextJson": "Process JSON Data",
+    "readyTextCsv": "Process CSV Data",
+    "placeholderTextAreaCsv": "Paste the CSV data here...",
+    "processAllData": "Process All Data"
+  },
+  "HomePage": {
+    "title": "Welcome to the home page",
+    "about": "About"
+  },
+  "Header": {
+    "comment": "Comment",
+    "features": "Features",
+    "blog": "Blog",
+    "contact": "Contact",
+    "resources": "Resources",
+    "login": "Log in",
+    "book": "Book a demo"
+  },
+  "DealTable": {
+    "DealsCommissions": "Deals and Commissions",
+    "amount": "Amount",
+    "salesperson": "Salesperson",
+    "date": "Date",
+    "commission": "Commission (10%)",
+    "source": "Source"
   }
 }

@@ -1,27 +1,43 @@
 {
-    "Hero": {
-        "title": "En Commet simplificamos el proceso de cálculo y pago de comisiones",
-        "description": "This is the home page of our application."
-    },
-    "DataUploader": {
-        "cardTitle": "Cargar Datos",
-        "cardDescription": "Upload your data files here.",
-        "uploadButton": "Upload",
-        "buttonProcess": "Process JSON Data",
-        "sampleButton": "Cargar datos de muestra",
-        "alertError": "Error"
-    },
-    "HomePage": {
-        "title": "Welcome to the home page",
-        "about": "About"
-    },
-    "Header": {
-        "comment": "Comment",
-        "features": "Características",
-        "blog": "Blog",
-        "contact": "Contacto",
-        "resources": "Recursos",
-        "login": "Log in",
-        "book": "Book a demo"
-    }
+  "Hero": {
+    "title": "En Commet simplificamos el proceso de cálculo y pago de comisiones",
+    "description": "This is the home page of our application."
+  },
+  "DataUploader": {
+    "cardTitle": "Cargar datos del CRM",
+    "cardDescription": "Upload your data files here.",
+    "success": "Exito",
+    "uploadButton": "Upload",
+    "buttonProcess": "Process JSON Data",
+    "sampleButton": "Cargar datos de muestra",
+    "alertError": "Error",
+    "loadSampleDate": "Dato de muestra",
+    "placeholderTextAreaJson": "Pegue los datos JSON aquí...",
+    "loading": "Procesando...",
+    "readyTextJson": "Procesar el JSON",
+    "readyTextCsv": "Procesar el CSV",
+    "placeholderTextAreaCsv": "Pegue los datos CSV aquí...",
+    "processAllData": "Procesando todos los datos"
+  },
+  "HomePage": {
+    "title": "Welcome to the home page",
+    "about": "About"
+  },
+  "Header": {
+    "comment": "Comment",
+    "features": "Características",
+    "blog": "Blog",
+    "contact": "Contacto",
+    "resources": "Recursos",
+    "login": "Iniciar Sección",
+    "book": "Demo"
+  },
+  "DealTable": {
+    "DealsCommissions": "Ofertas y comisiones",
+    "amount": "Monto",
+    "salesperson": "Vendedor",
+    "date": "Fecha",
+    "commission": "Comisión (10%)",
+    "source": "Origen"
+  }
 }

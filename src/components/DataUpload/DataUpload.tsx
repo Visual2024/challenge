@@ -8,6 +8,7 @@ import { AlertCircle, CheckCircle2 } from "lucide-react"
 import { processDeals } from "@/utils/validation"
 import { parseCsvData, transformCrmBData } from "@/services/transformsCsv/transformCrmBData"
 import user from '../../mock/deals.json'
+import { useTranslations } from "next-intl"
 
 interface DataUploaderProps {
     setDealsAction: React.Dispatch<React.SetStateAction<StandardizedDeal[]>>
@@ -19,6 +20,8 @@ export function DataUploader({ setDealsAction }: DataUploaderProps) {
     const [error, setError] = useState<string | null>(null)
     const [success, setSuccess] = useState<string | null>(null)
     const [loading, setLoading] = useState(false)
+
+    const t = useTranslations("DataUploader")
 
     const date = JSON.stringify(user, null, 2)
 
@@ -122,13 +125,13 @@ B2,4500,Maria García,2024/03/04`
     return (
         <Card>
             <CardHeader>
-                <CardTitle>Upload CRM Data</CardTitle>
+                <CardTitle>{t("cardTitle")}</CardTitle>
             </CardHeader>
             <CardContent>
                 <div className="space-y-4">
                     <div className="flex flex-wrap gap-4">
                         <Button onClick={loadSampleData} variant="outline">
-                            Load Sample Data
+                            {t("loadSampleDate")}
                         </Button>
 
 
@@ -145,7 +148,7 @@ B2,4500,Maria García,2024/03/04`
                     {success && (
                         <Alert className="bg-green-50 border-green-200">
                             <CheckCircle2 className="h-4 w-4 text-green-600" />
-                            <AlertTitle className="text-green-600">Success</AlertTitle>
+                            <AlertTitle className="text-green-600">{t("success")}</AlertTitle>
                             <AlertDescription>{success}</AlertDescription>
                         </Alert>
                     )}
@@ -157,31 +160,31 @@ B2,4500,Maria García,2024/03/04`
                         </TabsList>
                         <TabsContent value="json" className="space-y-4">
                             <Textarea
-                                placeholder="Paste JSON data here..."
+                                placeholder={t("placeholderTextAreaJson")}
                                 value={jsonInput}
                                 onChange={(e) => setJsonInput(e.target.value)}
                                 rows={10}
                             />
                             <Button onClick={processJsonData} disabled={loading}>
-                                {loading ? "Processing..." : "Process JSON Data"}
+                                {loading ? `${t("loading")}` : `${t("readyTextJson")}`}
                             </Button>
                         </TabsContent>
                         <TabsContent value="csv" className="space-y-4">
                             <Textarea
-                                placeholder="Paste CSV data here..."
+                                placeholder={t("placeholderTextAreaCsv")}
                                 value={csvInput}
                                 onChange={(e) => setCsvInput(e.target.value)}
                                 rows={10}
                             />
                             <Button onClick={processCsvData} disabled={loading}>
-                                {loading ? "Processing..." : "Process CSV Data"}
+                                {loading ? `${t("loading")}` : `${t("readyTextCsv")}`}
                             </Button>
                         </TabsContent>
                     </Tabs>
 
                     <div className="pt-4">
                         <Button onClick={processAllData} className="w-full" disabled={loading}>
-                            {loading ? "Processing..." : "Process All Data"}
+                            {loading ? `${t("loading")}` : `${t("processAllData")}`}
                         </Button>
                     </div>
                 </div>

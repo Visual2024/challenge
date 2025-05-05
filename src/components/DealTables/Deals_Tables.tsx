@@ -13,6 +13,7 @@ import {
   TableHeader,
   TableRow
 } from "../index"
+import { useTranslations } from "next-intl"
 
 
 
@@ -30,13 +31,15 @@ export function DealTable({ deals }: DealTableProps) {
     return new Date(dateString).toLocaleDateString("es-AR")
   }
 
+  const t = useTranslations("DealTable")
+
   return (
     <div className="space-y-6">
       <Card>
         <CardHeader>
           <CardTitle>
             <div className="flex items-center gap-2">
-              <span>Deals and Commissions</span>
+              <span>{t("DealsCommissions")}</span>
             </div>
           </CardTitle>
         </CardHeader>
@@ -46,11 +49,11 @@ export function DealTable({ deals }: DealTableProps) {
             <TableHeader>
               <TableRow>
                 <TableHead>ID</TableHead>
-                <TableHead>Amount</TableHead>
-                <TableHead>Salesperson</TableHead>
-                <TableHead>Date</TableHead>
-                <TableHead>Commission (10%)</TableHead>  
-                <TableHead>Source</TableHead>
+                <TableHead>{t("amount")}</TableHead>
+                <TableHead>{t("salesperson")}</TableHead>
+                <TableHead>{t("date")}</TableHead>
+                <TableHead>{t("commission")}</TableHead>  
+                <TableHead>{t("source")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
