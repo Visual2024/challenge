@@ -1,29 +1,26 @@
 "use client"
-import {  StandardizedDeal } from "@/interfaces/deals"
+import { StandardizedDeal } from "@/interfaces/deals"
 import { transformCrmAData } from "@/services/tranformsJson/transformCrmAData"
 import type React from "react"
 import { useState } from "react"
 import { Alert, AlertDescription, AlertTitle, Button, Card, CardContent, CardHeader, CardTitle, Tabs, TabsContent, TabsList, TabsTrigger, Textarea } from '..'
 import { AlertCircle, CheckCircle2 } from "lucide-react"
-import { Label } from "@radix-ui/react-label"
 import { processDeals } from "@/utils/validation"
-import { Switch } from "@/components/UI/switch"
 import { parseCsvData, transformCrmBData } from "@/services/transformsCsv/transformCrmBData"
 import user from '../../mock/deals.json'
 
 interface DataUploaderProps {
-    setDeals: React.Dispatch<React.SetStateAction<StandardizedDeal[]>>
-}
+    setDealsAction: React.Dispatch<React.SetStateAction<StandardizedDeal[]>>
+}   
 
-export function DataUploader({ setDeals }: DataUploaderProps) {
+export function DataUploader({ setDealsAction }: DataUploaderProps) {
     const [jsonInput, setJsonInput] = useState("")
     const [csvInput, setCsvInput] = useState("")
     const [error, setError] = useState<string | null>(null)
     const [success, setSuccess] = useState<string | null>(null)
     const [loading, setLoading] = useState(false)
-    const [saveToDatabase, setSaveToDatabase] = useState(false)
 
-    const date = JSON.stringify(user,null, 2)
+    const date = JSON.stringify(user, null, 2)
 
     const sampleCsvData = `opportunity_id,amount,seller,deal_date
 B1,3000,Carlos García,2024/03/03
@@ -42,21 +39,16 @@ B2,4500,Maria García,2024/03/04`
             setLoading(true)
             const parsedData = JSON.parse(jsonInput)
             console.log("Datos parseados" + parsedData);
-            
+
             const transformedData = transformCrmAData(parsedData)
-            console.log("Datos Transformados:",transformedData);
-            
+            console.log("Datos Transformados:", transformedData);
+
 
             const validDeals = processDeals(transformedData)
             console.log(validDeals);
-            
 
-            setDeals((prevDeals) => {
-                const filteredDeals = prevDeals.filter((deal) => deal.source !== "CRM A")
-                console.log(filteredDeals, "sdasd");
-                
-                return [...filteredDeals, ...validDeals]
-            })
+
+            setDealsAction(validDeals)
 
             setSuccess(`Successfully processed ${validDeals.length} deals from CRM A`)
         } catch (err) {
@@ -75,13 +67,11 @@ B2,4500,Maria García,2024/03/04`
             const transformedData = transformCrmBData(parsedData)
             const validDeals = processDeals(transformedData)
 
-            setDeals((prevDeals) => {
+            setDealsAction((prevDeals) => {
                 // Filter out any existing CRM B deals to avoid duplicates
                 const filteredDeals = prevDeals.filter((deal) => deal.source !== "CRM B")
                 return [...filteredDeals, ...validDeals]
             })
-
-            
 
             setSuccess(`Successfully processed ${validDeals.length} deals from CRM B`)
         } catch (err) {
@@ -103,8 +93,10 @@ B2,4500,Maria García,2024/03/04`
             if (jsonInput.trim()) {
                 const parsedJsonData = JSON.parse(jsonInput)
                 console.log("ParseDate ALL: ", parsedJsonData);
-                
+
                 const transformedJsonData = transformCrmAData(parsedJsonData)
+                console.log(transformedJsonData);
+
                 allDeals = [...allDeals, ...transformedJsonData]
             }
 
@@ -116,8 +108,7 @@ B2,4500,Maria García,2024/03/04`
             }
 
             const validDeals = processDeals(allDeals)
-            setDeals(validDeals)
-
+            setDealsAction(validDeals)
 
             setSuccess(`Successfully processed ${validDeals.length} deals from all CRMs`)
         } catch (err) {
@@ -139,13 +130,8 @@ B2,4500,Maria García,2024/03/04`
                         <Button onClick={loadSampleData} variant="outline">
                             Load Sample Data
                         </Button>
-                        <Button onClick={processAllData} variant="outline">
-                            Load From Database
-                        </Button>
-                        <div className="flex items-center space-x-2 ml-auto">
-                            <Switch id="save-db" checked={saveToDatabase} onCheckedChange={setSaveToDatabase} />
-                            <Label htmlFor={"save-db"}>Save to Database</Label>
-                        </div>
+
+
                     </div>
 
                     {error && (

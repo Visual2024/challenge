@@ -11,12 +11,16 @@ export interface DealsTypes {
 }
 
 export interface CrmADeal {
-  deal_id: string;
-  total: number;
-  amount: number;
-  rep_name: string;
-  sold_at: string;
-  created_on: string;
+  deal_id?: string;
+  total?: number;
+  amount?: number;
+  rep_name?: string;
+  sold_at?: string;
+  created_on?: string;
+}
+
+export interface DealTableProps {
+  deals: StandardizedDeal[]
 }
 
 // CRM B - Formato CSV

@@ -3,7 +3,6 @@ import * as React from "react"
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu"
 import { CheckIcon, ChevronRightIcon, CircleIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { usePathname } from "next/navigation"
 
 function DropdownMenu({
   ...props
@@ -61,8 +60,6 @@ function DropdownMenuGroup({
 function DropdownMenuItem({
   className,
   inset,
-  Link,
-  locales,
   variant = "default",
   ...props
 }: React.ComponentProps<typeof DropdownMenuPrimitive.Item> & {
@@ -71,7 +68,6 @@ function DropdownMenuItem({
   Link?: string
   locales?: string
 }) {
-  const pathname = usePathname();
   return (
     <DropdownMenuPrimitive.Item
       data-slot="dropdown-menu-item"

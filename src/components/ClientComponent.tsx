@@ -16,7 +16,7 @@ export function ClientComponent() {
     <div className="space-y-8">
       <Header />
       <Hero />
-      <DataUploader setDeals={setDeals} />
+      <DataUploader setDealsAction={setDeals} />
       <DealTable deals={deals} />
       <Footer />
     </div>

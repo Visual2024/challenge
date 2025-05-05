@@ -1,5 +1,5 @@
 'use client'
-import { StandardizedDeal } from "@/interfaces/deals"
+import { DealTableProps } from "@/interfaces/deals"
 import {
   Card,
   CardContent,
@@ -14,9 +14,7 @@ import {
   TableRow
 } from "../index"
 
-interface DealTableProps {
-  deals: StandardizedDeal[]
-}
+
 
 export function DealTable({ deals }: DealTableProps) {
   const totalCommission = deals.reduce((sum, deal) => sum + deal.commission, 0)

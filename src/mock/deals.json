@@ -1,14 +1,14 @@
 [
-    {
-        "opportunity_id": "A1",
-        "amount": 5000,
-        "seller": "Ana Pérez",
-        "deal_date": "2024/03/01"
-    },
-    {
-        "opportunity_id": "A2",
-        "amount": 4500,
-        "seller": "Juan Gómez",
-        "deal_date": "2024/03/02"
-    }
+  {
+    "deal_id": "A1",
+    "total": 5000,
+    "rep_name": "Ana Pérez",
+    "sold_at": "2024-03-01"
+  },
+  {
+    "deal_id": "A2",
+    "amount": 4500,
+    "rep_name": "Juan Gómez",
+    "created_on": "2024-03-02"
+  }
 ]

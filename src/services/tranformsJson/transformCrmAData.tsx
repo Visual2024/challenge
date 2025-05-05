@@ -7,13 +7,13 @@ export function transformCrmAData(data: CrmADeal[]): StandardizedDeal[] {
 
     console.log(amount);
     console.log(date);
-    
-    
+
+
 
     return {
-      id: deal.deal_id,
-      amount,
-      salesperson: deal.rep_name,
+      id: deal.deal_id || "",
+      amount: amount,
+      salesperson: deal.rep_name || "",
       date: new Date(date).toISOString(),
       commission: amount * 0.1,
       source: "CRM A",
