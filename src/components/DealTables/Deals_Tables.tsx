@@ -51,7 +51,7 @@ export function DealTable({ deals }: DealTableProps) {
                 <TableHead>Amount</TableHead>
                 <TableHead>Salesperson</TableHead>
                 <TableHead>Date</TableHead>
-                <TableHead>Commission (10%)</TableHead>
+                <TableHead>Commission (10%)</TableHead>  
                 <TableHead>Source</TableHead>
               </TableRow>
             </TableHeader>

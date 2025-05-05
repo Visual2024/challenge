@@ -1,28 +1,19 @@
 "use client"
-import { Alert, AlertDescription, AlertTitle, Button, Card, CardContent, CardHeader, CardTitle, Tabs, TabsContent, TabsList, TabsTrigger, Textarea } from "../index"
-import { CrmBDeal, StandardizedDeal } from "@/interfaces/deals"
-import { processDeals } from "@/services/data-transformer"
+import {  StandardizedDeal } from "@/interfaces/deals"
 import { transformCrmAData } from "@/services/tranformsJson/transformCrmAData"
-import { transformCrmBData } from "@/services/transformsCsv/transformCrmBData"
-import { AlertCircle, CheckCircle2 } from "lucide-react"
+import type React from "react"
 import { useState } from "react"
+import { Alert, AlertDescription, AlertTitle, Button, Card, CardContent, CardHeader, CardTitle, Tabs, TabsContent, TabsList, TabsTrigger, Textarea } from '..'
+import { AlertCircle, CheckCircle2 } from "lucide-react"
+import { Label } from "@radix-ui/react-label"
+import { processDeals } from "@/utils/validation"
+import { Switch } from "@/components/UI/switch"
+import { parseCsvData, transformCrmBData } from "@/services/transformsCsv/transformCrmBData"
 import user from '../../mock/deals.json'
-import { stringify } from "querystring"
 
 interface DataUploaderProps {
     setDeals: React.Dispatch<React.SetStateAction<StandardizedDeal[]>>
 }
-
-interface DatabaseDeal {
-    externalId: string;
-    amount: number;
-    salesperson: string;
-    date: string;
-    commission: number;
-    source: string;
-}
-
-type CsvRow = Record<string, string>;
 
 export function DataUploader({ setDeals }: DataUploaderProps) {
     const [jsonInput, setJsonInput] = useState("")
@@ -32,48 +23,42 @@ export function DataUploader({ setDeals }: DataUploaderProps) {
     const [loading, setLoading] = useState(false)
     const [saveToDatabase, setSaveToDatabase] = useState(false)
 
-        const sampleCsvData = `opportunity_id,amount,seller,deal_date
-    B1,3000,Carlos García,2024/03/03
-    B2,4500,Maria García,2024/03/04`
+    const date = JSON.stringify(user,null, 2)
 
-        const date = JSON.stringify(user, null, 2)
+    const sampleCsvData = `opportunity_id,amount,seller,deal_date
+B1,3000,Carlos García,2024/03/03
+B2,4500,Maria García,2024/03/04`
 
-        const loadSampleData = () => {
-            setJsonInput(date)
-            setCsvInput(sampleCsvData)
-            setError(null)
-            setSuccess("Sample data loaded successfully!")
-        }
-
-    const parseCsvData = (csvText: string) => {
-        const rows = csvText.split('\n');
-        const headers = rows[0].split(',');
-        return rows.slice(1).map(row => {
-            const values = row.split(',');
-            return headers.reduce((obj: CsvRow, header, index) => {
-                obj[header.trim()] = values[index]?.trim();
-                return obj;
-            }, {});
-        });
-    };
+    const loadSampleData = () => {
+        setJsonInput(date)
+        setCsvInput(sampleCsvData)
+        setError(null)
+        setSuccess("Sample data loaded successfully!")
+    }
 
     const processJsonData = async () => {
         try {
             setError(null)
             setLoading(true)
             const parsedData = JSON.parse(jsonInput)
-            const transformedData = transformCrmAData(parsedData, "CRM A")
-            const validDeals = processDeals(transformedData.valid)
-
-            setDeals((prevDeals) => {
-                // Filter out any existing CRM A deals to avoid duplicates
-                const filteredDeals = prevDeals.filter((deal) => deal.source !== "CRM A")
-                return [...filteredDeals, ...validDeals.valid]
-            })
-
+            console.log("Datos parseados" + parsedData);
+            
+            const transformedData = transformCrmAData(parsedData)
+            console.log("Datos Transformados:",transformedData);
             
 
-            setSuccess(`Successfully processed ${validDeals.valid.length} deals from CRM A`)
+            const validDeals = processDeals(transformedData)
+            console.log(validDeals);
+            
+
+            setDeals((prevDeals) => {
+                const filteredDeals = prevDeals.filter((deal) => deal.source !== "CRM A")
+                console.log(filteredDeals, "sdasd");
+                
+                return [...filteredDeals, ...validDeals]
+            })
+
+            setSuccess(`Successfully processed ${validDeals.length} deals from CRM A`)
         } catch (err) {
             setError(`Error processing JSON data: ${err instanceof Error ? err.message : String(err)}`)
             setSuccess(null)
@@ -87,16 +72,18 @@ export function DataUploader({ setDeals }: DataUploaderProps) {
             setError(null)
             setLoading(true)
             const parsedData = await parseCsvData(csvInput)
-            const transformedData = transformCrmBData(parsedData as unknown as CrmBDeal[])
+            const transformedData = transformCrmBData(parsedData)
             const validDeals = processDeals(transformedData)
 
             setDeals((prevDeals) => {
                 // Filter out any existing CRM B deals to avoid duplicates
                 const filteredDeals = prevDeals.filter((deal) => deal.source !== "CRM B")
-                return [...filteredDeals, ...validDeals.valid]
+                return [...filteredDeals, ...validDeals]
             })
 
-            setSuccess(`Successfully processed ${validDeals.valid.length} deals from CRM B`)
+            
+
+            setSuccess(`Successfully processed ${validDeals.length} deals from CRM B`)
         } catch (err) {
             setError(`Error processing CSV data: ${err instanceof Error ? err.message : String(err)}`)
             setSuccess(null)
@@ -115,30 +102,30 @@ export function DataUploader({ setDeals }: DataUploaderProps) {
             let allDeals: StandardizedDeal[] = []
             if (jsonInput.trim()) {
                 const parsedJsonData = JSON.parse(jsonInput)
-                const transformedJsonData = transformCrmAData(parsedJsonData, "CRM A")
-                allDeals = [...allDeals, ...transformedJsonData.valid]
+                console.log("ParseDate ALL: ", parsedJsonData);
+                
+                const transformedJsonData = transformCrmAData(parsedJsonData)
+                allDeals = [...allDeals, ...transformedJsonData]
             }
 
             // Process CSV data
             if (csvInput.trim()) {
-                const parsedCsvData:any = await parseCsvData(csvInput)
+                const parsedCsvData = await parseCsvData(csvInput)
                 const transformedCsvData = transformCrmBData(parsedCsvData)
                 allDeals = [...allDeals, ...transformedCsvData]
             }
 
             const validDeals = processDeals(allDeals)
-            setDeals(validDeals.valid)
+            setDeals(validDeals)
 
-            
 
-            setSuccess(`Successfully processed ${validDeals.valid.length} deals from all CRMs`)
+            setSuccess(`Successfully processed ${validDeals.length} deals from all CRMs`)
         } catch (err) {
             setError(`Error processing data: ${err instanceof Error ? err.message : String(err)}`)
         } finally {
             setLoading(false)
         }
     }
-
 
 
     return (
@@ -152,18 +139,12 @@ export function DataUploader({ setDeals }: DataUploaderProps) {
                         <Button onClick={loadSampleData} variant="outline">
                             Load Sample Data
                         </Button>
-                        <Button variant="outline">
+                        <Button onClick={processAllData} variant="outline">
                             Load From Database
                         </Button>
                         <div className="flex items-center space-x-2 ml-auto">
-                            <input
-                                type="checkbox"
-                                id="save-db"
-                                checked={saveToDatabase}
-                                onChange={(e) => setSaveToDatabase(e.target.checked)}
-                                className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                            />
-                            <label htmlFor="save-db">Save to Database</label>
+                            <Switch id="save-db" checked={saveToDatabase} onCheckedChange={setSaveToDatabase} />
+                            <Label htmlFor={"save-db"}>Save to Database</Label>
                         </div>
                     </div>
 

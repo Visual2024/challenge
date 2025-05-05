@@ -5,16 +5,20 @@ import { Hero } from "./Hero/Hero"
 import { DataUploader } from "./DataUpload/DataUpload"
 import { StandardizedDeal } from "@/interfaces/deals"
 import { DealTable } from "./DealTables/Deals_Tables"
+import { Footer } from "./layout/Footer/Footer"
 
 export function ClientComponent() {
+
   const [deals, setDeals] = useState<StandardizedDeal[]>([]);
+
 
   return (
     <div className="space-y-8">
       <Header />
       <Hero />
       <DataUploader setDeals={setDeals} />
-      <DealTable deals={deals} /> 
+      <DealTable deals={deals} />
+      <Footer />
     </div>
   );
 }
