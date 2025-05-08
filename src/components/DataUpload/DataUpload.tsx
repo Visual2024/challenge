@@ -20,13 +20,9 @@ export function DataUploader({ setDealsAction }: DataUploaderProps) {
     const [error, setError] = useState<string | null>(null)
     const [success, setSuccess] = useState<string | null>(null)
     const [loading, setLoading] = useState(false)
-
     const t = useTranslations("DataUploader")
-
     const date = JSON.stringify(user, null, 2)
-
-    console.log(date);
-
+    
     const sampleCsvData = `opportunity_id,amount,seller,deal_date
 B1,3000,Carlos García,2024/03/03
 B2,4500,Maria García,2024/03/04`
@@ -44,13 +40,8 @@ B2,4500,Maria García,2024/03/04`
             setLoading(true);
 
             const parsedData = JSON.parse(jsonInput);
-            console.log("Datos parseados:", parsedData);
-
             const transformedData = transformCrmAData(parsedData);
-            console.log("Datos Transformados:", transformedData);
-
             const validDeals = processDeals(transformedData);
-            console.log("Ofertas válidas:", validDeals);
 
             setDealsAction(validDeals);
             setSuccess(`Successfully processed ${validDeals.length} deals from CRM A`);
@@ -122,7 +113,6 @@ B2,4500,Maria García,2024/03/04`
             setLoading(false)
         }
     }
-
 
     return (
         <Card>

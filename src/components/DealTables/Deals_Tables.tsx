@@ -15,8 +15,6 @@ import {
 } from "../index"
 import { useTranslations } from "next-intl"
 
-
-
 export function DealTable({ deals }: DealTableProps) {
   const totalCommission = deals.reduce((sum, deal) => sum + deal.commission, 0)
 

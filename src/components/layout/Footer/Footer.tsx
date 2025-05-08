@@ -8,7 +8,7 @@ export function Footer() {
           &copy; {new Date().getFullYear()} Derechos Reservados
         </p>
         <a
-          href="https://github.com/danielduarte27"
+          href=""
           target="_blank"
           rel="noopener noreferrer"
           className="text-sm hover:text-blue-500 transition"
