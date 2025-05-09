@@ -79,7 +79,7 @@ export function DealTable({ deals }: DealTableProps) {
       )
     } else {
       return (
-        <TableRow key={`empty-${i}`} className="h-12">
+        <TableRow key={`empty-${i}`} className="h-8">
           <TableCell colSpan={6}>&nbsp;</TableCell>
         </TableRow>
       )
@@ -90,6 +90,28 @@ export function DealTable({ deals }: DealTableProps) {
     (sum, deal) => sum + deal.commission,
     0
   )
+
+
+  const getPageNumbers = () => {
+    const maxPagesToShow = 5 // Mostrar siempre 5 números
+    const pages = []
+
+    let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2))
+    let endPage = startPage + maxPagesToShow - 1
+
+    // Asegurarse de no pasarnos del total de páginas
+    if (endPage > totalPages) {
+      endPage = totalPages
+      startPage = Math.max(1, endPage - maxPagesToShow + 1)
+    }
+
+    // Generar el rango dinámico
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(i)
+    }
+
+    return pages
+  }
 
   const t = useTranslations("DealTable")
 
@@ -103,9 +125,8 @@ export function DealTable({ deals }: DealTableProps) {
             </div>
           </CardTitle>
         </CardHeader>
-        <CardContent className="h-[520px]">
+        <CardContent className="h-[500px]">
           <Table className="h-full">
-            <TableCaption>{t("listStadar")}</TableCaption>
             <TableHeader>
               <TableRow>
                 <TableHead>ID</TableHead>
@@ -118,60 +139,68 @@ export function DealTable({ deals }: DealTableProps) {
             </TableHeader>
             <TableBody>{rowsToDisplay}</TableBody>
           </Table>
+
+          {/* Paginación */}
+          {deals.length > itemsPerPage && (
+            <div className="flex justify-center mt-4">
+              <Pagination>
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault()
+                        goToPreviousPage()
+                      }}
+                      className={
+                        currentPage === 1
+                          ? "pointer-events-none opacity-50"
+                          : ""
+                      }
+                    />
+                  </PaginationItem>
+
+                  {getPageNumbers().map((page, index) => (
+                    <PaginationItem key={index}>
+                      {page === "..." ? (
+                        <span className="mx-1 px-2 text-sm text-gray-500">
+                          •••
+                        </span>
+                      ) : (
+                        <PaginationLink
+                          href="#"
+                          onClick={(e) => {
+                            e.preventDefault()
+                            handlePageClick(page as number)
+                          }}
+                          isActive={currentPage === page}
+                        >
+                          {page}
+                        </PaginationLink>
+                      )}
+                    </PaginationItem>
+                  ))}
+
+                  <PaginationItem>
+                    <PaginationNext
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault()
+                        goToNextPage()
+                      }}
+                      className={
+                        currentPage === totalPages
+                          ? "pointer-events-none opacity-50"
+                          : ""
+                      }
+                    />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
+            </div>
+          )}
         </CardContent>
       </Card>
-
-      {/* Paginación */}
-      {deals.length > itemsPerPage && (
-        <div className="flex justify-center mt-4">
-          <Pagination>
-            <PaginationContent>
-              <PaginationItem>
-                <PaginationPrevious
-                  href="#"
-                  onClick={(e) => {
-                    e.preventDefault()
-                    goToPreviousPage()
-                  }}
-                  className={
-                    currentPage === 1 ? "pointer-events-none opacity-50" : ""
-                  }
-                />
-              </PaginationItem>
-
-              {[...Array(totalPages)].map((_, i) => (
-                <PaginationItem key={i + 1}>
-                  <PaginationLink
-                    href="#"
-                    onClick={(e) => {
-                      e.preventDefault()
-                      handlePageClick(i + 1)
-                    }}
-                    isActive={currentPage === i + 1}
-                  >
-                    {i + 1}
-                  </PaginationLink>
-                </PaginationItem>
-              ))}
-
-              <PaginationItem>
-                <PaginationNext
-                  href="#"
-                  onClick={(e) => {
-                    e.preventDefault()
-                    goToNextPage()
-                  }}
-                  className={
-                    currentPage === totalPages
-                      ? "pointer-events-none opacity-50"
-                      : ""
-                  }
-                />
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
-        </div>
-      )}
 
       {currentDeals.length > 0 && (
         <Card className="bg-green-50">
