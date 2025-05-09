@@ -21,7 +21,7 @@ export function Header() {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const closeMenu = () => setMobileMenuOpen(false);
-
+  
   return (
     <>
       <header className="flex items-center justify-between max-w-full px-4 py-3 border-b  md:px-8 overflow-x-hidden">
