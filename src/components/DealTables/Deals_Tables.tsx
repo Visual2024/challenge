@@ -8,7 +8,6 @@ import {
   CardTitle,
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -162,22 +161,16 @@ export function DealTable({ deals }: DealTableProps) {
 
                   {getPageNumbers().map((page, index) => (
                     <PaginationItem key={index}>
-                      {page === "..." ? (
-                        <span className="mx-1 px-2 text-sm text-gray-500">
-                          •••
-                        </span>
-                      ) : (
-                        <PaginationLink
-                          href="#"
-                          onClick={(e) => {
-                            e.preventDefault()
-                            handlePageClick(page as number)
-                          }}
-                          isActive={currentPage === page}
-                        >
-                          {page}
-                        </PaginationLink>
-                      )}
+                      <PaginationLink
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault()
+                          handlePageClick(page as number)
+                        }}
+                        isActive={currentPage === page}
+                      >
+                        {page}
+                      </PaginationLink>
                     </PaginationItem>
                   ))}
 
