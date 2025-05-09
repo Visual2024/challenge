@@ -6,11 +6,11 @@ export function transformCrmAData(data: CrmADeal[]): StandardizedDeal[] {
 
     // Aseguramos que amount es un número
     const amount = Number(values[1] ?? 0);
-    
+
     // Manejo seguro de la fecha
     const rawDate = values[3];
     let parsedDate: Date;
-    
+
     if (rawDate === null || rawDate === undefined) {
       parsedDate = new Date();
     } else if (typeof rawDate === "string" || typeof rawDate === "number") {
@@ -21,11 +21,11 @@ export function transformCrmAData(data: CrmADeal[]): StandardizedDeal[] {
     } else {
       parsedDate = new Date();
     }
-    
+
     const standardizedDeal: StandardizedDeal = {
-      id: String(values[0] ?? ""),
+      id: String(values[0] ?? "" ?? " "),
       amount,
-      salesperson: String(values[2] ?? ""),
+      salesperson: String(values[2] ?? "" ?? " "),
       date: parsedDate.toISOString(),
       commission: amount * 0.1,
       source: String(values[5] ?? "CRM A"),
