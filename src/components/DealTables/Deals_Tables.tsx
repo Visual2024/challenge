@@ -86,7 +86,7 @@ export function DealTable({ deals }: DealTableProps) {
     }
   })
 
-  const totalCommission = currentDeals.reduce(
+  const totalCommission = deals.reduce(
     (sum, deal) => sum + deal.commission,
     0
   )
@@ -99,7 +99,7 @@ export function DealTable({ deals }: DealTableProps) {
         <CardHeader>
           <CardTitle>
             <div className="flex items-center gap-2">
-              <span>{t("DealsCommissions")}</span>
+              {/* <span>{t("DealsCommissions")}</span> */}
             </div>
           </CardTitle>
         </CardHeader>
