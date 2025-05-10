@@ -22,7 +22,7 @@ export function DataUploader({ setDealsAction }: DataUploaderProps) {
     const [loading, setLoading] = useState(false)
     const t = useTranslations("DataUploader")
     const date = JSON.stringify(user, null, 2)
-    
+
     const sampleCsvData = `opportunity_id,amount,seller,deal_date
 B1,3000,Carlos García,2024/03/03
 B2,4500,Maria García,2024/03/04`
@@ -184,12 +184,11 @@ B2,4500,Maria García,2024/03/04`
                             <TabsTrigger value="csv">CRM B (CSV)</TabsTrigger>
                         </TabsList>
                         <TabsContent value="json" className="space-y-4">
-
                             <Textarea
                                 placeholder={t("placeholderTextAreaJson")}
                                 value={jsonInput}
                                 onChange={(e) => setJsonInput(e.target.value)}
-                                rows={10}
+                                className="max-h-60 overflow-y-auto"
                             />
                             <Button onClick={processJsonData} disabled={loading}>
                                 {loading ? `${t("loading")}` : `${t("readyTextJson")}`}
@@ -200,7 +199,7 @@ B2,4500,Maria García,2024/03/04`
                                 placeholder={t("placeholderTextAreaCsv")}
                                 value={csvInput}
                                 onChange={(e) => setCsvInput(e.target.value)}
-                                rows={10}
+                                className="max-h-60 overflow-y-auto"
                             />
                             <Button onClick={processCsvData} disabled={loading}>
                                 {loading ? `${t("loading")}` : `${t("readyTextCsv")}`}
