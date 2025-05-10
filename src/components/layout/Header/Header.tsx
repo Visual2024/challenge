@@ -88,13 +88,13 @@ export function Header() {
               <Link href="#" className="text-sm font-medium hover:text-primary" onClick={closeMenu}>{t("resources")}</Link>
 
               <DropdownMenu>
-                <DropdownMenuTrigger asChild>
+                <DropdownMenuTrigger asChild className="">
                   <Button variant="ghost" className="flex items-center gap-1">
                     {nameDesig}
                     <ChevronDown className="h-4 w-4" />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="start">
+                <DropdownMenuContent align="start" className="z-[100] bg-red-500">
                   <Link href={"en"} className="w-full"><DropdownMenuItem onClick={closeMenu}>EN</DropdownMenuItem></Link>
                   <Link href={"es"} className="w-full"><DropdownMenuItem onClick={closeMenu}>ES</DropdownMenuItem></Link>
                 </DropdownMenuContent>
